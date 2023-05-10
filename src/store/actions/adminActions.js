@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 export const fetchGenderStart = () => {
     return async (dispatch, getState) => {
         try {
-            dispatch({type:actionTypes.FETCH_GENDER_START})
+            dispatch({ type: actionTypes.FETCH_GENDER_START })
             let res = await getAllCodeService("GENDER");
             if (res && res.errCode === 0) {
                 console.log('check get state:', getState)
@@ -106,11 +106,11 @@ export const creatNewUser = (data) => {
     }
 }
 
-export const saveUserSuccess =() => ({
+export const saveUserSuccess = () => ({
     type: actionTypes.CREATE_USER_SUCCESS,
 })
 
-export const saveUserFail= () => ({
+export const saveUserFail = () => ({
     type: actionTypes.CREATE_USER_FAIL,
 })
 
@@ -119,9 +119,10 @@ export const fetchAllUserStart = () => {
     return async (dispatch, getState) => {
         try {
             let res = await getAllUsers("ALL");
-            
+            let res1 = await getTopDoctorHomeService('')
+            console.log('check res1:', res1);
             if (res && res.errCode === 0) {
-                console.log('check get state:', getState)
+                // console.log('check get state:', getState)
 
                 dispatch(fetchAllUserSuccess(res.users))
             } else {
@@ -137,7 +138,7 @@ export const fetchAllUserStart = () => {
 
 export const fetchAllUserSuccess = (data) => ({
     type: actionTypes.FETCH_ALL_USER_SUCCESS,
-    users: data 
+    users: data
 })
 
 export const fetchAllUserFail = () => ({
@@ -214,7 +215,7 @@ export const fetchAllDoctor = () => {
                 dispatch({
                     type: actionTypes.FETCH_ALL_DOCTOR_SUCCESS,
                     dataDr: res.data,
-            })
+                })
             } else {
                 dispatch({ type: actionTypes.FETCH_ALL_DOCTOR_FAIL })
             }
@@ -233,8 +234,8 @@ export const saveDetailDoctor = (data) => {
                 toast.success("Save doctor successfully");
                 dispatch({
                     type: actionTypes.SAVE_DETAIL_DOCTOR_SUCCESS,
-                    
-            })
+
+                })
             } else {
                 toast.error("Save doctor failed");
                 dispatch({ type: actionTypes.SAVE_DETAIL_DOCTOR_FAIL })
